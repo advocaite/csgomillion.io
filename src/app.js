@@ -15,6 +15,7 @@ io.on('connection', function(socket){
 
     socket.on('chatSend', function(user, message){
         io.emit('chatSend', message);
+        io.broadcast.emit('chatSend', message);
         console.log('Chat Text FROM ' + user.PERSON_NAME + ' : ' + message);
     })
 });
