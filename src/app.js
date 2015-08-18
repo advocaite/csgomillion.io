@@ -11,15 +11,21 @@ io.on('connection', function(socket){
 
     console.log('a user connected');
 
-    socket.on('disconnect', function(){
+    socket.on('disconnect', function() {
         console.log('user disconnected');
     });
 
-    socket.on('chatSend', function(user, message){
-        socket.emit('chatSend', message);
-        socket.broadcast.emit('chatSend', message);
+    socket.on('chatSend', function(user, message) {
+
+        var data = {
+            user : user,
+            message : message
+        };
+
+        socket.emit('chatSend', data);
+        //socket.broadcast.emit('chatSend', data);
         console.log('Chat Text FROM ' + user.PERSON_NAME + ' : ' + message);
-    })
+    });
 
 });
 
