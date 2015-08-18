@@ -22,8 +22,8 @@ io.on('connection', function(socket){
             message : message
         };
 
-        //socket.emit('chat', data);
-        io.emit('chat', data);
+        socket.emit('chat', data);
+        //io.emit('chat', data);
         socket.broadcast.emit('chat', data);
 
 
