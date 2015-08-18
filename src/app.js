@@ -15,15 +15,15 @@ io.on('connection', function(socket){
         console.log('user disconnected');
     });
 
-    socket.on('chatSend', function(user, message) {
+    socket.on('chat', function(user, message) {
 
         var data = {
             user : user,
             message : message
         };
 
-        socket.emit('chatSend', data);
-        //socket.broadcast.emit('chatSend', data);
+        socket.emit('chat', data);
+
         console.log('Chat Text FROM ' + user.PERSON_NAME + ' : ' + message);
     });
 
