@@ -22,8 +22,7 @@ io.on('connection', function(socket){
             message : message
         };
 
-        //socket.emit('chat', data);
-        socket.broadcast.emit('chatSend', data);
+        socket.emit('chat', data);
 
         console.log('Chat Text FROM ' + user.PERSON_NAME + ' : ' + message);
     });
