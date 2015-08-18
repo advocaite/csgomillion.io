@@ -23,7 +23,8 @@ io.on('connection', function(socket){
         };
 
         socket.emit('chat', data);
-
+        socket.broadcast.emit('chat', data);
+        
         console.log('Chat Text FROM ' + user.PERSON_NAME + ' : ' + message);
     });
 
