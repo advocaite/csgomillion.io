@@ -9,10 +9,10 @@ app.get('/', function(req, res){
 
 io.on('connection', function(socket){
 
-    console.log('a user connected');
+    console.log('Guet user connected');
 
     socket.on('disconnect', function() {
-        console.log('user disconnected');
+        console.log('Guest user disconnected');
     });
 
     socket.on('chat', function(user, message) {
@@ -23,9 +23,18 @@ io.on('connection', function(socket){
         };
 
         socket.emit('chat', data);
-        socket.broadcast.emit('chat', data);
-        
-        console.log('Chat Text FROM ' + user.PERSON_NAME + ' : ' + message);
+        io.sockets.emit('chat', data);
+
+
+        //Broadcast a message to connected users when someone connects or disconnects
+        //Add support for nicknames
+        //    Don’t send the same message to the user that sent it himself. Instead, append the message directly as soon as he presses enter.
+        //    Add “{user} is typing” functionality
+        //Show who’s online
+        //Add private messaging
+        //Share your improvements!
+
+        console.log(user.PERSON_NAME + ' type on chat : ' + message);
     });
 
 });
