@@ -3,11 +3,6 @@ var http = require('http').Server(app);
 var io   = require('socket.io')(http);
 var fs   = require('fs');
 
-io.configure(function () {
-    io.set("transports", ["xhr-polling"]);
-    io.set("polling duration", 10);
-});
-
 app.get('/', function(req, res){
     res.send('<pre>csgomillion.com</pre>');
 });
@@ -28,7 +23,7 @@ io.on('connection', function(socket){
         };
 
         //socket.emit('chat', data);
-        socket.emit('chat', data);
+        socket.broadcast.emit('chat', data);
         //socket.broadcast.emit('chat', data);
 
 
