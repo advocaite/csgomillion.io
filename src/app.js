@@ -23,7 +23,7 @@ io.on('connection', function(socket){
         };
 
         socket.emit('chat', data);
-        io.sockets.emit('chat', data);
+        io.emit('chat', data);
 
 
         //Broadcast a message to connected users when someone connects or disconnects
