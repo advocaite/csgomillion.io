@@ -14,14 +14,14 @@ io.on('connection', function(socket){
 
     // Increase users online.
     online++;
-    socket.emit('chat:online', online);
+    io.emit('chat:online', online);
 
     console.log('Guet user connected');
 
     socket.on('disconnect', function() {
         // Decrease users online.
         online--;
-        socket.emit('chat:online', online);
+        io.emit('chat:online', online);
 
         console.log('Guest user disconnected');
     });
