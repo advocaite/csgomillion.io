@@ -15,17 +15,14 @@ io.on('connection', function(socket){
         console.log('Guest user disconnected');
     });
 
-    socket.on('chat', function(user, message) {
+    socket.on('chat:message', function(user, message) {
 
         var data = {
             user : user,
             message : message
         };
 
-        //socket.emit('chat', data);
-        socket.broadcast.emit('chat', data);
-        //socket.broadcast.emit('chat', data);
-
+        socket.broadcast.emit('chat:message', data);
 
         //Broadcast a message to connected users when someone connects or disconnects
         //Add support for nicknames
