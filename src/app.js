@@ -15,12 +15,7 @@ io.on('connection', function(socket){
         console.log('Guest user disconnected');
     });
 
-    socket.on('chat:message', function(user, message) {
-
-        var data = {
-            user : user,
-            message : message
-        };
+    socket.on('chat:message', function(data) {
 
         socket.broadcast.emit('chat:message', data);
 
@@ -32,7 +27,7 @@ io.on('connection', function(socket){
         //Add private messaging
         //Share your improvements!
 
-        console.log(user.PERSON_NAME + ' type on chat : ' + message);
+        console.log(data.user.PERSON_NAME + ' type on chat : ' + data.message);
     });
 
 });
