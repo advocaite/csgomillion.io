@@ -33,6 +33,17 @@ io.on('connection', function(socket){
         console.log(data.user.PERSON_NAME + ' type on chat : ' + data.message.text);
     });
 
+    socket.on('jackpot:search', function(hash) {
+
+        console.log(hash);
+
+        if (round.hash && round.hash == hash)
+            console.log("encontrou o jogo");
+
+        console.log("nao encontrou o jogo");
+
+    });
+
     socket.on('jackpot:round', function() {
 
         console.log(round);
