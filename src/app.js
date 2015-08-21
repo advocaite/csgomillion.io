@@ -3,14 +3,16 @@ var http = require('http').Server(app);
 var io   = require('socket.io')(http);
 var fs   = require('fs');
 
-var online = 0;
-var users = {};
-
 app.get('/', function(req, res){
     res.send('<pre>csgomillion.com</pre>');
 });
 
 io.on('connection', function(socket){
+
+    var online = 0;
+    var users = {};
+
+    var round = {};
 
     // Increase users online.
     online++;
@@ -30,6 +32,15 @@ io.on('connection', function(socket){
         socket.broadcast.emit('chat:message', data);
         console.log(data.user.PERSON_NAME + ' type on chat : ' + data.message.text);
     });
+
+    socket.on('jackpot:round', function() {
+
+        socket.broadcast.emit('jackpot:round', round);
+
+        console.log(round);
+
+    });
+
 });
 
 http.listen(3000, function(){
