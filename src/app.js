@@ -37,7 +37,8 @@ io.on('connection', function(socket){
 
         console.log(round);
 
-        socket.broadcast.emit('jackpot:round', 1);
+        socket.emit('jackpot:round', round);
+        socket.emit('jackpot:round', 1);
 
 
     });
