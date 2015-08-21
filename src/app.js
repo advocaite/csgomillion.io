@@ -38,10 +38,10 @@ io.on('connection', function(socket){
     socket.on('jackpot:round', function(data) {
 
         console.log(data);
-        
-        socket.broadcast.emit('jackpot:round', round);
 
-        console.log(round);
+        socket.broadcast.emit('jackpot:round', data);
+
+        console.log(round.hash);
 
     });
 
