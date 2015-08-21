@@ -12,7 +12,9 @@ io.on('connection', function(socket){
     var online = 0;
     var users = {};
 
-    var round = {};
+    var round = {
+        hash : 1
+    };
 
     // Increase users online.
     online++;
