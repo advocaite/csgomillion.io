@@ -35,8 +35,10 @@ io.on('connection', function(socket){
         console.log(data.user.PERSON_NAME + ' type on chat : ' + data.message.text);
     });
 
-    socket.on('jackpot:round', function() {
+    socket.on('jackpot:round', function(data) {
 
+        console.log(data);
+        
         socket.broadcast.emit('jackpot:round', round);
 
         console.log(round);
