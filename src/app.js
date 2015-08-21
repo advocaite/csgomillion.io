@@ -12,9 +12,7 @@ io.on('connection', function(socket){
     var online = 0;
     var users = {};
 
-    var round = {
-        hash : 1
-    };
+    var round = {};
 
     // Increase users online.
     online++;
@@ -35,13 +33,12 @@ io.on('connection', function(socket){
         console.log(data.user.PERSON_NAME + ' type on chat : ' + data.message.text);
     });
 
-    socket.on('jackpot:round', function(data) {
+    socket.on('jackpot:round', function() {
 
-        console.log(data);
+        console.log(round);
 
-        socket.broadcast.emit('jackpot:round', data);
+        socket.broadcast.emit('jackpot:round', round);
 
-        console.log(round.hash);
 
     });
 
