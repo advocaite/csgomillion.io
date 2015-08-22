@@ -23,9 +23,9 @@ var jackpot = {
             if (jackpot.time > 0)
                 jackpot.time--;
 
-        }, 1000);
+            console.log(jackpot.time);
 
-        console.log(jackpot.time);
+        }, 1000);
 
         return jackpot.time;
     },
