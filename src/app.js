@@ -18,9 +18,12 @@ var jackpot = {
 
     init : function(data) {
 
+        console.log(data);
+
         jackpot.setHash(data.HASH);
 
         console.log("Game Rodando:" + data.HASH);
+        console.log("Game Tempo:" + jackpot.time);
 
         jackpot.deposit();
     },
@@ -37,12 +40,17 @@ var jackpot = {
         if (jackpot.running)
             return jackpot.time;
 
+        jackpot.runing = true;
+
         var countdown = setInterval(function () {
 
             jackpot.time--;
-
-            if (jackpot.time <= 0)
+            io.emit('jackpot:countdown', jackpot.time);
+            
+            if (jackpot.time <= 0) {
+                jackpot.runing = false;
                 clearInterval(countdown);
+            }
 
             console.log("Tempo na Mesa:" + jackpot.time);
 
@@ -97,8 +105,6 @@ io.on('connection', function(socket){
 
         jackpot.init(data.HASH);
     });
-
-    io.emit('jackpot:countdown', jackpot.time);
 
 });
 
