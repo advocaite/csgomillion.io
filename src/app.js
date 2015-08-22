@@ -86,7 +86,7 @@ io.on('connection', function(socket){
 
     socket.on('jackpot:round', function(data) {
         console.log(data);
-        socket.broadcast.emit('jackpot:round', 1);
+        socket.broadcast.emit('jackpot:round', jackpot);
     });
 
 });
