@@ -3,16 +3,36 @@ var http = require('http').Server(app);
 var io   = require('socket.io')(http);
 var fs   = require('fs');
 
+var online = 0;
+var users  = {};
+
+var jackpot = {
+
+    hash     : null,
+    players  : [],
+    value    : 0.00,
+    time     : 120,
+    items    : [],
+    finished : 0,
+
+    pull : function() {
+        return jackpot;
+    },
+
+    setHash : function(data) {
+
+        this.hash = data;
+
+        return this.hash;
+    }
+
+};
+
 app.get('/', function(req, res){
     res.send('<pre>csgomillion.com</pre>');
 });
 
 io.on('connection', function(socket){
-
-    var online = 0;
-    var users = {};
-
-    var round = {};
 
     // Increase users online.
     online++;
@@ -35,13 +55,16 @@ io.on('connection', function(socket){
 
     socket.on('jackpot:search', function(data) {
 
-        console.log(data);
+        //console.log(data);
 
         if (round.hash && round.hash == data.HASH)
             console.log("encontrou o jogo");
 
-        round.HASH = data.HASH;
-        console.log(round);
+        jackpot.setHash(data.HASH);
+        var teste = jackpot.pull();
+
+        console.log(jackpot);
+        console.log(teste);
         console.log("nao encontrou o jogo");
 
     });
