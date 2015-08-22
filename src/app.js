@@ -33,13 +33,15 @@ io.on('connection', function(socket){
         console.log(data.user.PERSON_NAME + ' type on chat : ' + data.message.text);
     });
 
-    socket.on('jackpot:search', function(hash) {
+    socket.on('jackpot:search', function(data) {
 
-        console.log(hash);
+        console.log(data);
 
-        if (round.hash && round.hash == hash)
+        if (round.hash && round.hash == data.HASH)
             console.log("encontrou o jogo");
 
+        round.HASH = data.HASH;
+        console.log(round);
         console.log("nao encontrou o jogo");
 
     });
