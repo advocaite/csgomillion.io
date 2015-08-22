@@ -40,12 +40,16 @@ var jackpot = {
 
     start : function() {
 
+        io.emit('jackpot:start', 1);
+
         jackpot.runing = true;
         jackpot.countdown();
 
     },
 
     stop : function() {
+
+        io.emit('jackpot:stop', 1);
 
         jackpot.runing = false;
 
@@ -61,8 +65,6 @@ var jackpot = {
             if (jackpot.time == 0) {
                 jackpot.stop();
                 clearInterval(countdown);
-
-                io.emit('jackpot:end', 1);
             }
 
             console.log("Tempo na Mesa:" + jackpot.time);
