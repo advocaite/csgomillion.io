@@ -26,20 +26,28 @@ var jackpot = {
         jackpot.running = true;
 
         jackpot.data();
-
-        //jackpot.deposit();
     },
 
     data : function() {
         io.emit('jackpot:init', jackpot);
     },
 
-    deposit : function() {
+    deposit : function(data) {
 
-        io.emit('jackpot:deposit', 1);
+        console.log(data);
 
-        if ( ! jackpot.running)
-            jackpot.start();
+        for (var i = 0; i < data.length; i++) {
+            io.emit('jackpot:deposit', data[i]);
+            jackpot.items.push(data[i]);
+        }
+
+        console.log(jackpot.items);
+
+
+//        io.emit('jackpot:deposit', data);
+
+        //if ( ! jackpot.running)
+        //    jackpot.start();
 
     },
 
@@ -130,10 +138,12 @@ io.on('connection', function(socket){
         return jackpot.init(data);
     });
 
+    socket.on('jackpot:deposit', function(data) {
+        jackpot.deposit(data);
+    });
+
     socket.on('jackpot:reset', function() {
-
         jackpot.reset();
-
     });
 
 });
