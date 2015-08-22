@@ -15,8 +15,17 @@ var jackpot = {
     items    : [],
     finished : 0,
 
-    pull : function() {
-        return jackpot;
+    init : function() {
+
+        setInterval(function () {
+
+            console.log("contando");
+            if (jackpot.time > 0)
+                jackpot.time--;
+
+        }, 1000);
+
+        return jackpot.time;
     },
 
     check : function(data) {
@@ -65,14 +74,11 @@ io.on('connection', function(socket){
 
     socket.on('jackpot:search', function(data) {
 
-        if (jackpot.check(data)) {
-            console.log("achou a hash, return false");
+        if (jackpot.check(data))
             return false;
-        }
 
-        console.log("achou não, vai setar como um game novo");
         jackpot.setHash(data.HASH);
-        
+        jackpot.init();
     });
 
     socket.on('jackpot:round', function() {
