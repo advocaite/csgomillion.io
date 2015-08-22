@@ -11,7 +11,7 @@ var jackpot = {
     hash     : null,
     players  : [],
     value    : 0.00,
-    time     : 120,
+    time     : 10,
     items    : [],
     finished : 0,
     running  : false,
@@ -55,8 +55,10 @@ var jackpot = {
 
     },
 
-    reset : function () {
+    reset : function (data) {
 
+        console.log(data);
+        
         console.log("Reseta o game");
 
     },
