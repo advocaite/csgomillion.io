@@ -15,7 +15,7 @@ var jackpot = {
     items    : [],
     finished : 0,
 
-    init : function() {
+    init : function(data) {
 
         jackpot.setHash(data.HASH);
 
@@ -84,8 +84,8 @@ io.on('connection', function(socket){
         jackpot.init(data.HASH);
     });
 
-    socket.on('jackpot:round', function(data) {
-        console.log(data);
+    socket.on('jackpot:round', function() {
+
         socket.broadcast.emit('jackpot:round', jackpot);
     });
 
