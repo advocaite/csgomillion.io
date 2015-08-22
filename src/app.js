@@ -23,10 +23,11 @@ var jackpot = {
         console.log("Game Rodando:" + data.HASH);
         console.log("Game Tempo:" + jackpot.time);
 
+        jackpot.runing = true;
+
         io.emit('jackpot:init', jackpot);
 
         //jackpot.deposit();
-
     },
 
     deposit : function() {
