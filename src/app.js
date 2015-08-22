@@ -57,7 +57,7 @@ io.on('connection', function(socket){
 
         //console.log(data);
 
-        if (round.hash && round.hash == data.HASH)
+        if (jackpot.hash && jackpot.hash == data.HASH)
             console.log("encontrou o jogo");
 
         jackpot.setHash(data.HASH);
