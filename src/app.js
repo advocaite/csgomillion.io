@@ -17,15 +17,16 @@ var jackpot = {
 
     init : function() {
 
-        setInterval(function () {
+        var countdown = setInterval(function () {
 
-            console.log("contando");
             if (jackpot.time > 0)
                 jackpot.time--;
 
             console.log(jackpot.time);
 
         }, 1000);
+
+        clearInterval(countdown);
 
         return jackpot.time;
     },
