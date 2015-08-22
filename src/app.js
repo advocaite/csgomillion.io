@@ -18,7 +18,7 @@ var jackpot = {
 
     init : function(data) {
 
-        jackpot.hash(data.HASH);
+        jackpot.hash = data.HASH;
 
         console.log("Game Rodando:" + data.HASH);
         console.log("Game Tempo:" + jackpot.time);
