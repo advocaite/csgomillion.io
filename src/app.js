@@ -58,13 +58,13 @@ io.on('connection', function(socket){
         //console.log(data);
 
         if (jackpot.hash && jackpot.hash == data.HASH)
-            console.log("encontrou o jogo");
+            return false;
 
+        console.log("nao pode passar");
         jackpot.setHash(data.HASH);
-        var teste = jackpot.pull();
 
-        console.log(jackpot);
-        console.log(teste);
+        //console.log(jackpot);
+        //console.log(teste);
         console.log("nao encontrou o jogo");
 
     });
