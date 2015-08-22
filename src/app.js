@@ -34,6 +34,8 @@ app.get('/', function(req, res){
 
 io.on('connection', function(socket){
 
+    console.log(jackpot.hash);
+
     // Increase users online.
     online++;
     io.emit('chat:online', online);
@@ -57,7 +59,7 @@ io.on('connection', function(socket){
 
         //console.log(data);
 
-        if (jackpot.hash && jackpot.hash == data.HASH)
+        if (jackpot.hash || jackpot.hash == data.HASH)
             return false;
 
         console.log("nao pode passar");
