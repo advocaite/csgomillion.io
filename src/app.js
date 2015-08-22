@@ -14,6 +14,7 @@ var jackpot = {
     time     : 120,
     items    : [],
     finished : 0,
+    running  : false,
 
     init : function(data) {
 
@@ -26,12 +27,15 @@ var jackpot = {
 
     deposit : function() {
 
-        if (jackpot.players.length == 0)
+        if (jackpot.players.length == 0 && ! jackpot.running)
             jackpot.countdown();
 
     },
 
     countdown : function() {
+
+        if (jackpot.running)
+            return jackpot.time;
 
         var countdown = setInterval(function () {
 
