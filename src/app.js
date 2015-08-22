@@ -57,9 +57,7 @@ var jackpot = {
 
     reset : function () {
 
-        socket.on('jackpot:reset', function() {
-            console.log("Reseta o Game");
-        });
+        console.log("Reseta o game");
 
     },
 
@@ -123,6 +121,12 @@ io.on('connection', function(socket){
             return false;
 
         jackpot.init(data);
+    });
+
+    socket.on('jackpot:reset', function() {
+
+        jackpot.reset();
+
     });
 
 });
