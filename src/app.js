@@ -23,7 +23,7 @@ var jackpot = {
         console.log("Game Rodando:" + data.HASH);
         console.log("Game Tempo:" + jackpot.time);
 
-        jackpot.runing = true;
+        jackpot.running = true;
 
         jackpot.data();
 
