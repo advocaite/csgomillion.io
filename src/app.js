@@ -124,10 +124,10 @@ io.on('connection', function(socket){
 
     socket.on('jackpot:search', function(data) {
 
-        if ( ! jackpot.check(data))
-            jackpot.init(data)
+        if (jackpot.check(data))
+            return jackpot.data();
 
-        jackpot.data();
+        return jackpot.init(data);
     });
 
     socket.on('jackpot:reset', function() {
