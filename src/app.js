@@ -19,6 +19,14 @@ var jackpot = {
         return jackpot;
     },
 
+    check : function(data) {
+
+        if (jackpot.hash || jackpot.hash == data.HASH)
+            return true;
+
+        return false;
+    },
+
     setHash : function(data) {
 
         this.hash = data;
@@ -57,18 +65,14 @@ io.on('connection', function(socket){
 
     socket.on('jackpot:search', function(data) {
 
-        //console.log(data);
-
-        if (jackpot.hash || jackpot.hash == data.HASH)
+        if (jackpot.check(data)) {
+            console.log("achou a hash, return false");
             return false;
+        }
 
-        console.log("nao pode passar");
+        console.log("achou não, vai setar como um game novo");
         jackpot.setHash(data.HASH);
-
-        //console.log(jackpot);
-        //console.log(teste);
-        console.log("nao encontrou o jogo");
-
+        
     });
 
     socket.on('jackpot:round', function() {
