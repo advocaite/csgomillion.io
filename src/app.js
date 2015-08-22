@@ -25,9 +25,13 @@ var jackpot = {
 
         jackpot.runing = true;
 
-        io.emit('jackpot:init', jackpot);
+        jackpot.data();
 
         //jackpot.deposit();
+    },
+
+    data : function() {
+        io.emit('jackpot:init', jackpot);
     },
 
     deposit : function() {
@@ -121,7 +125,7 @@ io.on('connection', function(socket){
     socket.on('jackpot:search', function(data) {
 
         if (jackpot.check(data))
-            return false;
+            jackpot.data();
 
         jackpot.init(data);
     });
