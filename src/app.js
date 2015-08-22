@@ -19,15 +19,15 @@ var jackpot = {
 
         var countdown = setInterval(function () {
 
-            if (jackpot.time > 0)
-                jackpot.time--;
+            jackpot.time--;
+
+            if (jackpot.time < 0)
+                clearInterval(countdown);
 
             console.log(jackpot.time);
 
         }, 1000);
-
-        clearInterval(countdown);
-
+        
         return jackpot.time;
     },
 
