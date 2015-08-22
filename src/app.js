@@ -11,7 +11,7 @@ var jackpot = {
     hash     : null,
     players  : [],
     value    : 0.00,
-    time     : 10,
+    time     : 120,
     items    : [],
     finished : 0,
 
