@@ -84,9 +84,9 @@ io.on('connection', function(socket){
         jackpot.init(data.HASH);
     });
 
-    socket.on('jackpot:round', function() {
-
-        socket.broadcast.emit('jackpot:round', jackpot);
+    socket.on('jackpot:countdown', function() {
+        console.log(jackpot.time);
+        socket.broadcast.emit('jackpot:countdown', jackpot.time);
     });
 
 });
