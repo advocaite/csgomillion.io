@@ -17,17 +17,17 @@ var jackpot = {
 
     init : function(data) {
 
-        this.setHash(data.HASH);
+        jackpot.setHash(data.HASH);
 
         console.log("Game Rodando:" + data.HASH);
 
-        this.deposit();
+        jackpot.deposit();
     },
 
     deposit : function() {
 
-        if (this.players.length == 0)
-            this.countdown();
+        if (jackpot.players.length == 0)
+            jackpot.countdown();
 
     },
 
@@ -35,12 +35,12 @@ var jackpot = {
 
         var countdown = setInterval(function () {
 
-            this.time--;
+            jackpot.time--;
 
-            if (this.time <= 0)
+            if (jackpot.time <= 0)
                 clearInterval(countdown);
 
-            console.log("Tempo na Mesa:" + this.time);
+            console.log("Tempo na Mesa:" + jackpot.time);
 
         }, 1000);
 
@@ -49,7 +49,7 @@ var jackpot = {
 
     check : function(data) {
 
-        if (this.hash || this.hash == data.HASH)
+        if (jackpot.hash || this.jackpot == data.HASH)
             return true;
 
         return false;
