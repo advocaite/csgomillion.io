@@ -23,11 +23,15 @@ var jackpot = {
         console.log("Game Rodando:" + data.HASH);
         console.log("Game Tempo:" + jackpot.time);
 
+        io.emit('jackpot:init', data);
+
         jackpot.deposit();
 
     },
 
     deposit : function() {
+
+        io.emit('jackpot:deposit', 1);
 
         if ( ! jackpot.running)
             jackpot.start();
@@ -57,6 +61,8 @@ var jackpot = {
             if (jackpot.time == 0) {
                 jackpot.stop();
                 clearInterval(countdown);
+
+                io.emit('jackpot:end', 1);
             }
 
             console.log("Tempo na Mesa:" + jackpot.time);
