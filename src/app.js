@@ -18,37 +18,44 @@ var jackpot = {
 
     init : function(data) {
 
-        console.log(data);
-
         jackpot.setHash(data.HASH);
 
         console.log("Game Rodando:" + data.HASH);
         console.log("Game Tempo:" + jackpot.time);
 
         jackpot.deposit();
+
     },
 
     deposit : function() {
 
-        if (jackpot.players.length == 0 && ! jackpot.running)
-            jackpot.countdown();
+        if ( ! jackpot.running)
+            jackpot.start();
+
+    },
+
+    start : function() {
+
+        jackpot.runing = true;
+        jackpot.countdown();
+
+    },
+
+    stop : function() {
+
+        jackpot.runing = false;
 
     },
 
     countdown : function() {
 
-        if (jackpot.running)
-            return jackpot.time;
-
-        jackpot.runing = true;
-
         var countdown = setInterval(function () {
 
             jackpot.time--;
             io.emit('jackpot:countdown', jackpot.time);
-            
-            if (jackpot.time <= 0) {
-                jackpot.runing = false;
+
+            if (jackpot.time == 0) {
+                jackpot.stop();
                 clearInterval(countdown);
             }
 
@@ -103,7 +110,7 @@ io.on('connection', function(socket){
         if (jackpot.check(data))
             return false;
 
-        jackpot.init(data.HASH);
+        jackpot.init(data);
     });
 
 });
