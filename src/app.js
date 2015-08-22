@@ -23,9 +23,9 @@ var jackpot = {
         console.log("Game Rodando:" + data.HASH);
         console.log("Game Tempo:" + jackpot.time);
 
-        io.emit('jackpot:init', data);
+        io.emit('jackpot:init', jackpot);
 
-        jackpot.deposit();
+        //jackpot.deposit();
 
     },
 
@@ -58,7 +58,7 @@ var jackpot = {
     reset : function (data) {
 
         console.log(data);
-        
+
         console.log("Reseta o game");
 
     },
