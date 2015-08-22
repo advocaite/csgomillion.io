@@ -11,7 +11,7 @@ var jackpot = {
     hash     : null,
     players  : [],
     value    : 0.00,
-    time     : 120,
+    time     : 10,
     items    : [],
     finished : 0,
 
@@ -24,6 +24,8 @@ var jackpot = {
                 jackpot.time--;
 
         }, 1000);
+
+        console.log(jackpot.time);
 
         return jackpot.time;
     },
