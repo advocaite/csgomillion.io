@@ -17,17 +17,23 @@ var jackpot = {
 
     init : function() {
 
+        jackpot.setHash(data.HASH);
+
+    },
+
+    countdown : function() {
+
         var countdown = setInterval(function () {
 
             jackpot.time--;
 
-            if (jackpot.time < 0)
+            if (jackpot.time <= 0)
                 clearInterval(countdown);
 
             console.log(jackpot.time);
 
         }, 1000);
-        
+
         return jackpot.time;
     },
 
@@ -40,10 +46,7 @@ var jackpot = {
     },
 
     setHash : function(data) {
-
-        this.hash = data;
-
-        return this.hash;
+        return this.hash = data;
     }
 
 };
@@ -53,8 +56,6 @@ app.get('/', function(req, res){
 });
 
 io.on('connection', function(socket){
-
-    console.log(jackpot.hash);
 
     // Increase users online.
     online++;
@@ -80,18 +81,11 @@ io.on('connection', function(socket){
         if (jackpot.check(data))
             return false;
 
-        jackpot.setHash(data.HASH);
-        jackpot.init();
+        jackpot.init(data.HASH);
     });
 
     socket.on('jackpot:round', function() {
-
-        console.log(round);
-
-        socket.emit('jackpot:round', round);
-        socket.emit('jackpot:round', 1);
-
-
+        socket.broadcast.emit('jackpot:round', 1);
     });
 
 });
