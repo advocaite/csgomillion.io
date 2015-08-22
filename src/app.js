@@ -18,7 +18,7 @@ var jackpot = {
 
     init : function(data) {
 
-        jackpot.setHash(data.HASH);
+        jackpot.hash(data.HASH);
 
         console.log("Game Rodando:" + data.HASH);
         console.log("Game Tempo:" + jackpot.time);
@@ -55,6 +55,14 @@ var jackpot = {
 
     },
 
+    reset : function () {
+
+        socket.on('jackpot:reset', function() {
+            console.log("Reseta o Game");
+        });
+
+    },
+
     countdown : function() {
 
         var countdown = setInterval(function () {
@@ -67,7 +75,7 @@ var jackpot = {
                 clearInterval(countdown);
             }
 
-            console.log("Tempo na Mesa:" + jackpot.time);
+            console.log("Game Tempo:" + jackpot.time);
 
         }, 1000);
 
@@ -80,10 +88,6 @@ var jackpot = {
             return true;
 
         return false;
-    },
-
-    setHash : function(data) {
-        return this.hash = data;
     }
 
 };
