@@ -9,10 +9,10 @@ var users  = {};
 var jackpot = {
 
     hash     : null,
-    players  : [],
+    players  : 0,
     value    : 0.00,
     time     : 10,
-    items    : [],
+    items    : 0,
     finished : 0,
     running  : false,
 
@@ -34,8 +34,11 @@ var jackpot = {
 
     update : function(data) {
 
-        console.log(data);
+        jackpot.players = data.PLAYERS;
+        jackpot.items   = data.ITEMS;
+        jackpot.value   = data.VALUE;
 
+        io.emit('jackpot:update', jackpot);
     },
 
     deposit : function(data) {
