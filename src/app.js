@@ -32,17 +32,18 @@ var jackpot = {
         io.emit('jackpot:init', jackpot);
     },
 
-    deposit : function(data) {
+    update : function(data) {
 
         console.log(data);
+
+    },
+
+    deposit : function(data) {
 
         for (var i = 0; i < data.length; i++) {
             io.emit('jackpot:deposit', data[i]);
             jackpot.items.push(data[i]);
         }
-
-        console.log(jackpot.items);
-
 
 //        io.emit('jackpot:deposit', data);
 
@@ -140,6 +141,10 @@ io.on('connection', function(socket){
 
     socket.on('jackpot:deposit', function(data) {
         jackpot.deposit(data);
+    });
+
+    socket.on('jackpot:update', function(data) {
+        jackpot.update(data);
     });
 
     socket.on('jackpot:reset', function() {
