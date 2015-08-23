@@ -9,10 +9,16 @@ var users  = {};
 var jackpot = {
 
     hash     : null,
-    players  : 0,
+    players  : {
+        total   : 0,
+        players : []
+    },
     value    : 0.00,
     time     : 10,
-    items    : 0,
+    items    : {
+        total : 0,
+        items : []
+    },
     finished : 0,
     running  : false,
 
@@ -34,9 +40,9 @@ var jackpot = {
 
     update : function(data) {
 
-        jackpot.players = data.PLAYERS;
-        jackpot.items   = data.ITEMS;
-        jackpot.value   = data.VALUE;
+        jackpot.players.total = data.PLAYERS;
+        jackpot.items.total   = data.ITEMS;
+        jackpot.value         = data.VALUE;
 
         io.emit('jackpot:update', jackpot);
     },
@@ -45,7 +51,7 @@ var jackpot = {
 
         for (var i = 0; i < data.length; i++) {
             io.emit('jackpot:deposit', data[i]);
-            jackpot.items.push(data[i]);
+            jackpot.items.items.push(data[i]);
         }
 
 //        io.emit('jackpot:deposit', data);
