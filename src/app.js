@@ -32,8 +32,6 @@ var jackpot = {
         if (data.VALUE)
             jackpot.value = data.VALUE;
 
-        jackpot.running = true;
-
         console.log("Round HASH: " + data.HASH);
         console.log("Round TIME: " + jackpot.time);
 
@@ -44,7 +42,6 @@ var jackpot = {
 
         console.log("INDEX");
 
-        console.log(jackpot);
         io.emit('jackpot:init', jackpot);
     },
 
@@ -54,32 +51,33 @@ var jackpot = {
         jackpot.items   = data.items;
         jackpot.value   = data.VALUE;
 
+        if (jackpot.players.length > 1)
+            jackpot.start();
+
         io.emit('jackpot:update', jackpot);
     },
 
     deposit : function(data) {
 
-        console.log(data);
-
         for (var i = 0; i < data.length; i++) {
             jackpot.items.push(data[i]);
             io.emit('jackpot:deposit', data[i]);
         }
+
     },
 
     start : function() {
 
-        io.emit('jackpot:start', 1);
+        io.emit('jackpot:start');
 
-        jackpot.runing = true;
+        jackpot.running = true;
         jackpot.countdown();
     },
 
     stop : function() {
 
-        io.emit('jackpot:stop', 1);
-
-        jackpot.runing = false;
+        io.emit('jackpot:stop');
+        jackpot.running = false;
     },
 
     reset : function (data) {
