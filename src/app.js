@@ -106,10 +106,10 @@ var jackpot = {
 
     check : function(data) {
 
-        console.log(data);
-        console.log(jackpot);
+        console.log(data.jackpot);
+        console.log(jackpot.hash);
 
-        if (jackpot.hash == data.HASH)
+        if (jackpot.hash == data.jackpot.HASH)
             return true;
 
         return false;
