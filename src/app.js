@@ -50,7 +50,7 @@ var jackpot = {
         jackpot.items   = data.items;
         jackpot.value   = data.VALUE;
 
-        if (jackpot.players.length > 1)
+        if (jackpot.players.length > 1 && jackpot.time === 10)
             jackpot.start();
 
         io.emit('jackpot:update', jackpot);
@@ -58,7 +58,7 @@ var jackpot = {
 
     deposit : function(data) {
 
-        console.log("Round DEPOSIT");
+        console.log("Round DEPOSIT ");
 
         if (jackpot.finished === 1)
             return false;
