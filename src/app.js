@@ -34,8 +34,8 @@ var jackpot = {
 
         jackpot.running = true;
 
-        console.log("Round HASH:" + data.HASH);
-        console.log("Round TIME:" + jackpot.time);
+        console.log("Round HASH: " + data.HASH);
+        console.log("Round TIME: " + jackpot.time);
 
         io.emit('jackpot:init', jackpot);
     },
@@ -44,6 +44,7 @@ var jackpot = {
 
         console.log("INDEX");
 
+        console.log(jackpot);
         io.emit('jackpot:init', jackpot);
     },
 
@@ -97,7 +98,7 @@ var jackpot = {
                 clearInterval(countdown);
             }
 
-            console.log("Round TIME:" + jackpot.time);
+            console.log("Round TIME: " + jackpot.time);
 
         }, 1000);
 
