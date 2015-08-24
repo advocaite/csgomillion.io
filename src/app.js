@@ -29,8 +29,8 @@ var jackpot = {
         if (data.players && data.players.length > 0)
             jackpot.players = data.players;
 
-        if (data.value)
-            jackpot.value   = data.VALUE;
+        if (data.VALUE)
+            jackpot.value = data.VALUE;
 
         jackpot.running = true;
 
