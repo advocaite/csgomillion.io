@@ -9,16 +9,10 @@ var users  = {};
 var jackpot = {
 
     hash     : null,
-    players  : {
-        total   : 0,
-        players : []
-    },
+    players  : [],
+    items    : [],
     value    : 0.00,
     time     : 10,
-    items    : {
-        total : 0,
-        items : []
-    },
     finished : 0,
     running  : false,
 
@@ -26,23 +20,32 @@ var jackpot = {
 
         jackpot.hash = data.HASH;
 
-        console.log("Game Rodando:" + data.HASH);
-        console.log("Game Tempo:" + jackpot.time);
+        if (data.items.length > 0)
+            jackpot.items = data.items;
 
+
+        if (data.players.length > 0)
+            jackpot.players = data.players;
+
+        jackpot.value   = data.VALUE;
         jackpot.running = true;
 
-        jackpot.data();
+        console.log("Round HASH:" + data.HASH);
+        console.log("Round TIME:" + jackpot.time);
+
+        io.emit('jackpot:init', jackpot);
     },
 
     data : function() {
-        io.emit('jackpot:init', jackpot);
+
+        io.emit('jackpot:data', jackpot);
     },
 
     update : function(data) {
 
-        jackpot.players.total = data.PLAYERS;
-        jackpot.items.total   = data.ITEMS;
-        jackpot.value         = data.VALUE;
+        jackpot.players = data.players;
+        jackpot.items   = data.items;
+        jackpot.value   = data.VALUE;
 
         io.emit('jackpot:update', jackpot);
     },
@@ -50,15 +53,9 @@ var jackpot = {
     deposit : function(data) {
 
         for (var i = 0; i < data.length; i++) {
+            jackpot.items.push(data[i]);
             io.emit('jackpot:deposit', data[i]);
-            jackpot.items.items.push(data[i]);
         }
-
-//        io.emit('jackpot:deposit', data);
-
-        //if ( ! jackpot.running)
-        //    jackpot.start();
-
     },
 
     start : function() {
@@ -67,7 +64,6 @@ var jackpot = {
 
         jackpot.runing = true;
         jackpot.countdown();
-
     },
 
     stop : function() {
@@ -75,15 +71,12 @@ var jackpot = {
         io.emit('jackpot:stop', 1);
 
         jackpot.runing = false;
-
     },
 
     reset : function (data) {
 
         console.log(data);
-
-        console.log("Reseta o game");
-
+        console.log("Round RESET");
     },
 
     countdown : function() {
@@ -98,7 +91,7 @@ var jackpot = {
                 clearInterval(countdown);
             }
 
-            console.log("Game Tempo:" + jackpot.time);
+            console.log("Round TIME:" + jackpot.time);
 
         }, 1000);
 
@@ -121,18 +114,17 @@ app.get('/', function(req, res){
 
 io.on('connection', function(socket){
 
-    // Increase users online.
+    console.log('Guest user Connected.');
+
     online++;
     io.emit('chat:online', online);
 
-    console.log('Guet user connected');
-
     socket.on('disconnect', function() {
-        // Decrease users online.
+
         online--;
         io.emit('chat:online', online);
 
-        console.log('Guest user disconnected');
+        console.log('Guest user Disconnected.');
     });
 
     socket.on('chat:message', function(data) {
