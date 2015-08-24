@@ -30,6 +30,8 @@ var jackpot = {
         if (data.VALUE)
             jackpot.value = data.VALUE;
 
+        jackpot.running = true;
+
         console.log("Round HASH: " + data.HASH);
         console.log("Round TIME: " + jackpot.time);
 
@@ -97,8 +99,8 @@ var jackpot = {
             io.emit('jackpot:countdown', jackpot.time);
 
             if (jackpot.time == 0) {
-                jackpot.stop();
                 clearInterval(countdown);
+                jackpot.stop();
             }
 
             console.log("Round TIME: " + jackpot.time);
