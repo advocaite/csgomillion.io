@@ -22,16 +22,16 @@ var jackpot = {
 
         jackpot.hash = data.HASH;
 
-        console.log(data.items);
-
-        if (data.items.length > 0)
+        if (data.items && data.items.length > 0)
             jackpot.items = data.items;
 
 
-        if (data.players.length > 0)
+        if (data.players && data.players.length > 0)
             jackpot.players = data.players;
 
-        jackpot.value   = data.VALUE;
+        if (data.value)
+            jackpot.value   = data.VALUE;
+
         jackpot.running = true;
 
         console.log("Round HASH:" + data.HASH);
@@ -43,7 +43,6 @@ var jackpot = {
     index : function() {
 
         console.log("INDEX");
-        console.log(jackpot);
 
         io.emit('jackpot:init', jackpot);
     },
