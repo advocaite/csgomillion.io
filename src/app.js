@@ -19,11 +19,10 @@ var jackpot = {
     init : function(data) {
 
         console.log("INIT");
-        console.log(data);
 
         jackpot.hash = data.HASH;
 
-        console.log(data);
+        console.log(data.items);
 
         if (data.items.length > 0)
             jackpot.items = data.items;
