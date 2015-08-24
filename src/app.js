@@ -38,7 +38,7 @@ var jackpot = {
 
     data : function() {
 
-        io.emit('jackpot:data', jackpot);
+        return jackpot;
     },
 
     update : function(data) {
@@ -135,7 +135,7 @@ io.on('connection', function(socket){
     socket.on('jackpot:search', function(data) {
 
         if (jackpot.check(data))
-            return jackpot.data();
+            data = jackpot.data();
 
         return jackpot.init(data);
     });
