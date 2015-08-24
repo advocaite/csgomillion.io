@@ -106,6 +106,9 @@ var jackpot = {
 
     check : function(data) {
 
+        console.log(data);
+        console.log(jackpot);
+
         if (jackpot.hash || this.jackpot == data.HASH)
             return true;
 
