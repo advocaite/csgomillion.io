@@ -18,6 +18,8 @@ var jackpot = {
 
     init : function(data) {
 
+        console.log(data);
+
         jackpot.hash = data.HASH;
 
         if (data.items.length > 0)
