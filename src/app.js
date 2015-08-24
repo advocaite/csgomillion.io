@@ -86,6 +86,15 @@ var jackpot = {
         jackpot.finished = 1;
 
         io.emit('jackpot:stop');
+
+        jackpot.process();
+    },
+
+    process : function() {
+
+        console.log("Round STOP");
+
+        io.emit('jackpot:process');
     },
 
     reset : function (data) {
