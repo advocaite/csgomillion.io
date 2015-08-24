@@ -23,6 +23,8 @@ var jackpot = {
 
         jackpot.hash = data.HASH;
 
+        console.log(data);
+
         if (data.items.length > 0)
             jackpot.items = data.items;
 
@@ -105,9 +107,6 @@ var jackpot = {
     },
 
     check : function(data) {
-
-        console.log(data.jackpot);
-        console.log(jackpot.hash);
 
         if (jackpot.hash == data.jackpot.HASH)
             return true;
