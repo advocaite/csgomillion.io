@@ -18,8 +18,6 @@ var jackpot = {
 
     init : function(data) {
 
-        console.log("INIT");
-
         jackpot.hash = data.HASH;
 
         if (data.items && data.items.length > 0)
@@ -39,13 +37,12 @@ var jackpot = {
     },
 
     index : function() {
-
-        console.log("INDEX");
-
         io.emit('jackpot:init', jackpot);
     },
 
     update : function(data) {
+
+        console.log("Round UPDATE");
 
         jackpot.players = data.players;
         jackpot.items   = data.items;
@@ -59,6 +56,8 @@ var jackpot = {
 
     deposit : function(data) {
 
+        console.log("Round DEPOSIT");
+
         for (var i = 0; i < data.length; i++) {
             jackpot.items.push(data[i]);
             io.emit('jackpot:deposit', data[i]);
@@ -68,6 +67,8 @@ var jackpot = {
 
     start : function() {
 
+        console.log("Round START");
+
         io.emit('jackpot:start');
 
         jackpot.running = true;
@@ -75,6 +76,8 @@ var jackpot = {
     },
 
     stop : function() {
+
+        console.log("Round STOP");
 
         io.emit('jackpot:stop');
         jackpot.running = false;
