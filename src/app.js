@@ -18,6 +18,9 @@ var jackpot = {
 
     init : function(data) {
 
+        console.log("INIT");
+        console.log(data);
+
         jackpot.hash = data.HASH;
 
         if (data.items.length > 0)
@@ -37,6 +40,9 @@ var jackpot = {
     },
 
     index : function() {
+
+        console.log("INDEX");
+        console.log(jackpot);
 
         io.emit('jackpot:init', jackpot);
     },
