@@ -109,7 +109,7 @@ var jackpot = {
         console.log(data);
         console.log(jackpot);
 
-        if (jackpot.hash || this.jackpot == data.HASH)
+        if (this.jackpot == data.HASH)
             return true;
 
         return false;
