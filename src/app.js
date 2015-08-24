@@ -60,6 +60,9 @@ var jackpot = {
 
         console.log("Round DEPOSIT");
 
+        if (jackpot.finished === 1)
+            return false;
+
         for (var i = 0; i < data.length; i++) {
             jackpot.items.push(data[i]);
             io.emit('jackpot:deposit', data[i]);
