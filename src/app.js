@@ -18,8 +18,6 @@ var jackpot = {
 
     init : function(data) {
 
-        console.log(data);
-
         jackpot.hash = data.HASH;
 
         if (data.items.length > 0)
@@ -38,9 +36,9 @@ var jackpot = {
         io.emit('jackpot:init', jackpot);
     },
 
-    data : function() {
+    index : function() {
 
-        return jackpot;
+        io.emit('jackpot:init', jackpot);
     },
 
     update : function(data) {
@@ -137,7 +135,7 @@ io.on('connection', function(socket){
     socket.on('jackpot:search', function(data) {
 
         if (jackpot.check(data))
-            data = jackpot.data();
+            return jackpot.index();
 
         return jackpot.init(data);
     });
