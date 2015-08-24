@@ -72,8 +72,6 @@ var jackpot = {
         console.log("Round START");
 
         io.emit('jackpot:start');
-
-        jackpot.running = true;
         jackpot.countdown();
     },
 
@@ -81,8 +79,10 @@ var jackpot = {
 
         console.log("Round STOP");
 
+        jackpot.running  = false;
+        jackpot.finished = 1;
+
         io.emit('jackpot:stop');
-        jackpot.running = false;
     },
 
     reset : function (data) {
