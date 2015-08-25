@@ -58,7 +58,7 @@ var jackpot = {
         round.items   = data.items;
         round.value   = data.VALUE;
 
-        if (jackpot.players.length > 1 && round.time.seconds === 10)
+        if (round.players.length > 1 && round.time.seconds === 10)
             jackpot.start();
 
         return jackpot.data();
