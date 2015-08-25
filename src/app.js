@@ -111,9 +111,11 @@ var jackpot = {
             dataType: 'json'
         }).then(function(response) {
 
-            console.log(response.body.process);
-            var data = response.body.process;
+            //console.log(response.body.process);
+            var data = response.getBody();
 
+            console.log(data);
+            
             roulette = {
                 ease    : data.EASE,
                 million : data.WINNER,
