@@ -121,17 +121,17 @@ var jackpot = {
                 items   : data.game.ROULETTE
             };
 
-            io.emit('jackpot:winner', roulette);
+            jackpot.winner(roulette);
         });
 
     },
 
-    //winner : function(data) {
-    //
-    //    console.log("Round WINNER");
-    //
-    //    io.emit('jackpot:winner', data);
-    //},
+    winner : function(data) {
+
+        console.log("Round WINNER");
+
+        io.emit('jackpot:winner', data);
+    },
 
     //reset : function (data) {
     //
@@ -203,10 +203,6 @@ io.on('connection', function(socket){
 
         return false;
     });
-
-    //socket.on('jackpot:winner', function(data) {
-    //    jackpot.winner(data);
-    //});
 
     socket.on('jackpot:update', function(data) {
         jackpot.update(data);
