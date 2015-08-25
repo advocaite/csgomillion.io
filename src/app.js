@@ -35,11 +35,11 @@ var jackpot = {
         console.log("Round HASH: " + data.HASH);
         console.log("Round TIME: " + jackpot.time);
 
-        io.emit('jackpot:init', jackpot);
+        socket.emit('jackpot:init', jackpot);
     },
 
     index : function() {
-        io.emit('jackpot:init', jackpot);
+        socket.emit('jackpot:init', jackpot);
     },
 
     update : function(data) {
