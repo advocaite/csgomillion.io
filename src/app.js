@@ -50,10 +50,10 @@ var jackpot = {
         jackpot.items   = data.items;
         jackpot.value   = data.VALUE;
 
+        io.emit('jackpot:update', jackpot);
+
         if (jackpot.players.length > 1 && jackpot.time === 10)
             jackpot.start();
-
-        io.emit('jackpot:update', jackpot);
     },
 
     deposit : function(data) {
@@ -175,7 +175,7 @@ io.on('connection', function(socket){
     });
 
     socket.on('jackpot:winner', function(data) {
-        jackpot.winner(data);
+        //jackpot.winner(data);
     });
 
     socket.on('jackpot:update', function(data) {
