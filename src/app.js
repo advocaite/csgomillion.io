@@ -86,7 +86,7 @@ var jackpot = {
         jackpot.finished = 1;
 
         io.emit('jackpot:stop');
-        jackpot.process();
+        //jackpot.process();
     },
 
     process : function() {
@@ -116,9 +116,9 @@ var jackpot = {
             jackpot.time--;
             io.emit('jackpot:countdown', jackpot.time);
 
-            if (jackpot.time == 0) {
-                clearInterval(countdown);
+            if (jackpot.time < 0) {
                 jackpot.stop();
+                clearInterval(countdown);
             }
 
             console.log("Round TIME: " + jackpot.time);
