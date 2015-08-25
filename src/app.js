@@ -109,18 +109,18 @@ var jackpot = {
                 'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'
             },
             dataType: 'json'
-        }).then(function(res) {
+        }).then(function(response) {
 
-            var data = res.getBody();
+            var data = response.getBody();
 
             roulette = {
-                ease    : data.response.EASE,
-                million : data.response.WINNER,
-                items   : data.response.ROULETTE
+                ease    : data.game.EASE,
+                million : data.game.WINNER,
+                items   : data.game.ROULETTE
             };
         });
 
-        console.log(data.response);
+        console.log(data.game);
         console.log(roulette);
 
         io.emit('jackpot:winner', roulette);
