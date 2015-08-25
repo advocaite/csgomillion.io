@@ -172,11 +172,19 @@ io.on('connection', function(socket){
         console.log("User request SEARCH");
 
         console.log(data);
-        //
-        //if (jackpot.check(data))
-        //    return jackpot.index();
-        //
-        //return jackpot.init(data);
+
+        var auth = jackpot.check(data);
+
+        if (auth) {
+            console.log("INDEX");
+            jackpot.index();
+            return false;
+        }
+
+        console.log("INIT");
+        jackpot.init(data);
+
+        return false;
     });
 
     socket.on('jackpot:deposit', function(data) {
