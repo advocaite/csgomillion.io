@@ -2,6 +2,16 @@ var app  = require('express')();
 var http = require('http').Server(app);
 var io   = require('socket.io')(http);
 
+var requestify = require('requestify');
+
+/*jshint esnext: true */
+const API = {
+    HOST    : "http://api.csgomillion.com/",
+    KEY     : "348caba53c1234487714035965ad49fb",
+    VERSION : "v1",
+    FORMAT  : "json"
+};
+
 var online = 0;
 
 var roulette = {
@@ -80,15 +90,30 @@ var jackpot = {
 
         io.emit('jackpot:stop');
 
-        //jackpot.process();
+        jackpot.process();
     },
 
-    //process : function() {
-    //
-    //    console.log("Round PROCESS");
-    //
-    //    io.emit('jackpot:process');
-    //},
+    process : function() {
+
+        console.log("Round PROCESS");
+
+        requestify.request(API.HOST + service + "/process/" + API.FORMAT, {
+            method: 'POST',
+            body: {
+                api_key : API.KEY,
+                hash : round.hash
+            },
+            headers: {
+                'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'
+            },
+            dataType: 'json'
+        }).then(function(response) {
+            console.log(response);
+        });
+
+
+        //io.emit('jackpot:process');
+    },
 
     //winner : function(data) {
     //
