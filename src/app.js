@@ -19,6 +19,7 @@ var online = 0;
 var roulette = {
     ease    : 0,
     million : 0,
+    winner  : null,
     items   : []
 };
 
@@ -115,16 +116,14 @@ var jackpot = {
 
             roulette = {
                 ease    : data.game.EASE,
-                million : data.game.WINNER,
+                million : data.game.MILLION,
+                winner  : data.game.WINNER,
                 items   : data.game.ROULETTE
             };
-            
-            console.log(data.game);
-            console.log(roulette);
 
+            io.emit('jackpot:winner', roulette);
         });
 
-        io.emit('jackpot:winner', roulette);
     },
 
     //winner : function(data) {
