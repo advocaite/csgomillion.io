@@ -101,7 +101,7 @@ var jackpot = {
 
         console.log("Round WINNER");
 
-        //io.emit('jackpot:winner', data);
+        io.emit('jackpot:winner', data);
     },
 
     reset : function (data) {
