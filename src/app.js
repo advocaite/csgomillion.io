@@ -11,16 +11,16 @@ var roulette = {
 };
 
 var round = {
-    hash: null,
-    players: [],
-    items: [],
-    time: {
-        seconds: 10,
-        percentage: 0
+    hash    : null,
+    players : [],
+    items   : [],
+    time    : {
+        seconds    : 10,
+        percentage : 0
     },
-    value: 0.00,
-    finished: 0,
-    running: false
+    value    : 0.00,
+    finished : 0,
+    running  : false
 };
 
 var jackpot = {
@@ -41,7 +41,7 @@ var jackpot = {
         round.running = true;
 
         console.log("Round HASH: " + data.HASH);
-        console.log("Round TIME: " + jackpot.seconds.time);
+        console.log("Round TIME: " + jackpot.time.seconds);
 
         return jackpot.data();
     },
