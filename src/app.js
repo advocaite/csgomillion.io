@@ -111,7 +111,7 @@ var jackpot = {
             io.emit('jackpot:countdown', round.time.seconds);
 
             if (round.time.seconds <= 0) {
-                //jackpot.stop();
+                jackpot.stop();
                 clearInterval(countdown);
             }
 
