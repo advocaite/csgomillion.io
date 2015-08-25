@@ -97,6 +97,13 @@ var jackpot = {
         io.emit('jackpot:process');
     },
 
+    winner : function() {
+
+        console.log("Round WINNER");
+        
+        io.emit('jackpot:winner');
+    },
+
     reset : function (data) {
 
         console.log(data);
