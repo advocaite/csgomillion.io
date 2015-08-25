@@ -34,11 +34,11 @@ var jackpot = {
         console.log("Round HASH: " + data.HASH);
         console.log("Round TIME: " + jackpot.time);
 
-        this.socket.emit('jackpot:init', jackpot);
+        socket.emit('jackpot:init', jackpot);
     },
 
     index : function() {
-        this.socket.emit('jackpot:init', jackpot);
+        socket.emit('jackpot:init', jackpot);
     },
 
     update : function(data) {
@@ -144,13 +144,13 @@ app.get('/', function(req, res){
 
 io.on('connection', function(socket){
 
-    this.socket = socket;
+    socket = socket;
     console.log('Guest user Connected.');
 
     online++;
     io.emit('chat:online', online);
 
-    this.socket.on('disconnect', function() {
+    socket.on('disconnect', function() {
 
         online--;
         io.emit('chat:online', online);
@@ -158,12 +158,12 @@ io.on('connection', function(socket){
         console.log('Guest user Disconnected.');
     });
 
-    this.socket.on('chat:message', function(data) {
+    socket.on('chat:message', function(data) {
         socket.broadcast.emit('chat:message', data);
         console.log(data.user.PERSON_NAME + ' type on chat : ' + data.message.text);
     });
 
-    this.socket.on('jackpot:search', function(data) {
+    socket.on('jackpot:search', function(data) {
 
         console.log("Round SEARCH");
 
@@ -173,7 +173,7 @@ io.on('connection', function(socket){
         return jackpot.init(data);
     });
 
-    this.socket.on('jackpot:deposit', function(data) {
+    socket.on('jackpot:deposit', function(data) {
         jackpot.deposit(data);
     });
 
@@ -181,7 +181,7 @@ io.on('connection', function(socket){
     //    jackpot.winner(data);
     //});
 
-    this.socket.on('jackpot:update', function(data) {
+    socket.on('jackpot:update', function(data) {
         jackpot.update(data);
     });
 
