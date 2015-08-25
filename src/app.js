@@ -68,21 +68,20 @@ var jackpot = {
 
         console.log("Round START");
 
-        io.emit('jackpot:start');
         jackpot.countdown();
     },
 
-    //stop : function() {
-    //
-    //    console.log("Round STOP");
-    //
-    //    jackpot.running  = false;
-    //    jackpot.finished = 1;
-    //
-    //    io.emit('jackpot:stop');
-    //
-    //    //jackpot.process();
-    //},
+    stop : function() {
+
+        console.log("Round STOP");
+
+        jackpot.running  = false;
+        jackpot.finished = 1;
+
+        io.emit('jackpot:stop');
+
+        //jackpot.process();
+    },
 
     //process : function() {
     //
