@@ -40,8 +40,8 @@ var jackpot = {
 
         round.running = true;
 
-        console.log("Round HASH: " + data.HASH);
-        console.log("Round TIME: " + jackpot.time.seconds);
+        console.log("Round HASH: " + round.HASH);
+        console.log("Round TIME: " + round.time.seconds);
 
         return jackpot.data();
     },
