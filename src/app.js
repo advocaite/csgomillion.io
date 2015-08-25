@@ -176,7 +176,7 @@ io.on('connection', function(socket){
     });
 
     socket.on('jackpot:winner', function(data) {
-        //jackpot.winner(data);
+        jackpot.winner(data);
     });
 
     socket.on('jackpot:update', function(data) {
