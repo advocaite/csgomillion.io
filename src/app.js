@@ -50,33 +50,33 @@ var jackpot = {
         return round;
     },
 
-    //update : function(data) {
-    //
-    //    console.log("Round UPDATE");
-    //
-    //    jackpot.players = data.players;
-    //    jackpot.items   = data.items;
-    //    jackpot.value   = data.VALUE;
-    //
-    //    io.emit('jackpot:update', jackpot);
-    //
-    //    if (jackpot.players.length > 1 && jackpot.time === 10)
-    //        jackpot.start();
-    //},
+    update : function(data) {
 
-    deposit : function(data) {
+        console.log("Round UPDATE");
 
-        console.log("Round DEPOSIT");
+        round.players = data.players;
+        round.items   = data.items;
+        round.value   = data.VALUE;
 
-        if (round.finished === 1)
-            return false;
+        //if (jackpot.players.length > 1 && round.time.seconds === 10)
+        //    jackpot.start();
 
-        for (var i = 0; i < data.length; i++) {
-            jackpot.items.push(data[i]);
-            //io.emit('jackpot:deposit', data[i]);
-        }
-
+        return jackpot.data();
     },
+
+    //deposit : function(data) {
+    //
+    //    console.log("Round DEPOSIT");
+    //
+    //    if (round.finished === 1)
+    //        return false;
+    //
+    //    for (var i = 0; i < data.length; i++) {
+    //        round.items.push(data[i]);
+    //        //io.emit('jackpot:deposit', data[i]);
+    //    }
+    //
+    //},
 
     //start : function() {
     //
@@ -183,17 +183,18 @@ io.on('connection', function(socket){
         return false;
     });
 
-    socket.on('jackpot:deposit', function(data) {
-        jackpot.deposit(data);
-    });
+    //socket.on('jackpot:deposit', function(data) {
+    //    jackpot.deposit(data);
+    //});
 
     //socket.on('jackpot:winner', function(data) {
     //    jackpot.winner(data);
     //});
 
-    //socket.on('jackpot:update', function(data) {
-    //    jackpot.update(data);
-    //});
+    socket.on('jackpot:update', function(data) {
+        jackpot.update(data);
+        io.emit('jackpot:update', round);
+    });
 
     //socket.on('jackpot:reset', function() {
     //    jackpot.reset();
