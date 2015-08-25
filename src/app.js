@@ -1,10 +1,9 @@
 var app  = require('express')();
 var http = require('http').Server(app);
 var io   = require('socket.io')(http);
-var fs   = require('fs');
 
+var socket = null;
 var online = 0;
-var users  = {};
 
 var jackpot = {
 
@@ -35,11 +34,11 @@ var jackpot = {
         console.log("Round HASH: " + data.HASH);
         console.log("Round TIME: " + jackpot.time);
 
-        socket.emit('jackpot:init', jackpot);
+        this.socket.emit('jackpot:init', jackpot);
     },
 
     index : function() {
-        socket.emit('jackpot:init', jackpot);
+        this.socket.emit('jackpot:init', jackpot);
     },
 
     update : function(data) {
@@ -145,12 +144,13 @@ app.get('/', function(req, res){
 
 io.on('connection', function(socket){
 
+    this.socket = socket;
     console.log('Guest user Connected.');
 
     online++;
     io.emit('chat:online', online);
 
-    socket.on('disconnect', function() {
+    this.socket.on('disconnect', function() {
 
         online--;
         io.emit('chat:online', online);
@@ -158,12 +158,12 @@ io.on('connection', function(socket){
         console.log('Guest user Disconnected.');
     });
 
-    socket.on('chat:message', function(data) {
+    this.socket.on('chat:message', function(data) {
         socket.broadcast.emit('chat:message', data);
         console.log(data.user.PERSON_NAME + ' type on chat : ' + data.message.text);
     });
 
-    socket.on('jackpot:search', function(data) {
+    this.socket.on('jackpot:search', function(data) {
 
         console.log("Round SEARCH");
 
@@ -173,7 +173,7 @@ io.on('connection', function(socket){
         return jackpot.init(data);
     });
 
-    socket.on('jackpot:deposit', function(data) {
+    this.socket.on('jackpot:deposit', function(data) {
         jackpot.deposit(data);
     });
 
@@ -181,7 +181,7 @@ io.on('connection', function(socket){
     //    jackpot.winner(data);
     //});
 
-    socket.on('jackpot:update', function(data) {
+    this.socket.on('jackpot:update', function(data) {
         jackpot.update(data);
     });
 
