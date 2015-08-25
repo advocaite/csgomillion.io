@@ -40,7 +40,7 @@ var jackpot = {
 
         round.running = true;
 
-        console.log("Round HASH: " + round.HASH);
+        console.log("Round HASH: " + round.hash);
         console.log("Round TIME: " + round.time.seconds);
 
         return jackpot.data();
@@ -50,92 +50,92 @@ var jackpot = {
         return round;
     },
 
-    update : function(data) {
-
-        console.log("Round UPDATE");
-
-        jackpot.players = data.players;
-        jackpot.items   = data.items;
-        jackpot.value   = data.VALUE;
-
-        io.emit('jackpot:update', jackpot);
-
-        if (jackpot.players.length > 1 && jackpot.time === 10)
-            jackpot.start();
-    },
+    //update : function(data) {
+    //
+    //    console.log("Round UPDATE");
+    //
+    //    jackpot.players = data.players;
+    //    jackpot.items   = data.items;
+    //    jackpot.value   = data.VALUE;
+    //
+    //    io.emit('jackpot:update', jackpot);
+    //
+    //    if (jackpot.players.length > 1 && jackpot.time === 10)
+    //        jackpot.start();
+    //},
 
     deposit : function(data) {
 
-        console.log("Round DEPOSIT ");
+        console.log("Round DEPOSIT");
 
-        if (jackpot.finished === 1)
+        if (round.finished === 1)
             return false;
 
         for (var i = 0; i < data.length; i++) {
             jackpot.items.push(data[i]);
-            io.emit('jackpot:deposit', data[i]);
+            //io.emit('jackpot:deposit', data[i]);
         }
 
     },
 
-    start : function() {
+    //start : function() {
+    //
+    //    console.log("Round START");
+    //
+    //    io.emit('jackpot:start');
+    //    jackpot.countdown();
+    //},
 
-        console.log("Round START");
+    //stop : function() {
+    //
+    //    console.log("Round STOP");
+    //
+    //    jackpot.running  = false;
+    //    jackpot.finished = 1;
+    //
+    //    io.emit('jackpot:stop');
+    //
+    //    //jackpot.process();
+    //},
 
-        io.emit('jackpot:start');
-        jackpot.countdown();
-    },
+    //process : function() {
+    //
+    //    console.log("Round PROCESS");
+    //
+    //    io.emit('jackpot:process');
+    //},
 
-    stop : function() {
+    //winner : function(data) {
+    //
+    //    console.log("Round WINNER");
+    //
+    //    io.emit('jackpot:winner', data);
+    //},
 
-        console.log("Round STOP");
+    //reset : function (data) {
+    //
+    //    console.log(data);
+    //    console.log("Round RESET");
+    //},
 
-        jackpot.running  = false;
-        jackpot.finished = 1;
-
-        io.emit('jackpot:stop');
-
-        //jackpot.process();
-    },
-
-    process : function() {
-
-        console.log("Round PROCESS");
-
-        io.emit('jackpot:process');
-    },
-
-    winner : function(data) {
-
-        console.log("Round WINNER");
-
-        io.emit('jackpot:winner', data);
-    },
-
-    reset : function (data) {
-
-        console.log(data);
-        console.log("Round RESET");
-    },
-
-    countdown : function() {
-
-        var countdown = setInterval(function () {
-
-            jackpot.time--;
-            io.emit('jackpot:countdown', jackpot.time);
-
-            if (jackpot.time <= 0) {
-                jackpot.stop();
-                clearInterval(countdown);
-            }
-
-            console.log("Round TIME: " + jackpot.time);
-
-        }, 1000);
-
-        return jackpot.time;
-    },
+    //countdown : function() {
+    //
+    //    var countdown = setInterval(function () {
+    //
+    //        jackpot.time--;
+    //        io.emit('jackpot:countdown', jackpot.time);
+    //
+    //        if (jackpot.time <= 0) {
+    //            jackpot.stop();
+    //            clearInterval(countdown);
+    //        }
+    //
+    //        console.log("Round TIME: " + jackpot.time);
+    //
+    //    }, 1000);
+    //
+    //    return jackpot.time;
+    //},
 
     check : function(data) {
 
@@ -170,7 +170,7 @@ io.on('connection', function(socket){
             console.log("Round INDEX");
 
             var response = jackpot.data();
-            socket.emit('jackpot:init', response);
+            socket.emit('jackpot:load', response);
 
             return false;
         }
@@ -178,7 +178,7 @@ io.on('connection', function(socket){
         console.log("Round INIT");
 
         var response = jackpot.init(data);
-        socket.emit('jackpot:init', response);
+        socket.emit('jackpot:load', response);
 
         return false;
     });
@@ -191,9 +191,9 @@ io.on('connection', function(socket){
     //    jackpot.winner(data);
     //});
 
-    socket.on('jackpot:update', function(data) {
-        jackpot.update(data);
-    });
+    //socket.on('jackpot:update', function(data) {
+    //    jackpot.update(data);
+    //});
 
     //socket.on('jackpot:reset', function() {
     //    jackpot.reset();
