@@ -27,28 +27,27 @@ var jackpot = {
 
     init : function(data) {
 
-        jackpot.hash = data.HASH;
+        round.hash = data.HASH;
 
         if (data.items && data.items.length > 0)
-            jackpot.items = data.items;
-
+            round.items = data.items;
 
         if (data.players && data.players.length > 0)
-            jackpot.players = data.players;
+            round.players = data.players;
 
         if (data.VALUE)
-            jackpot.value = data.VALUE;
+            round.value = data.VALUE;
 
-        jackpot.running = true;
+        round.running = true;
 
         console.log("Round HASH: " + data.HASH);
         console.log("Round TIME: " + jackpot.time);
 
-        io.emit('jackpot:init', jackpot);
+        return jackpot.data();
     },
 
-    index : function() {
-        io.emit('jackpot:init', jackpot);
+    data : function() {
+        return round;
     },
 
     update : function(data) {
@@ -169,20 +168,23 @@ io.on('connection', function(socket){
 
     socket.on('jackpot:search', function(data) {
 
-        console.log("User request SEARCH");
-
-        console.log(data);
+        console.log("Round SEARCH");
 
         var auth = jackpot.check(data);
 
         if (auth) {
-            console.log("INDEX");
-            jackpot.index();
+            console.log("Round INDEX");
+
+            var response = jackpot.data();
+            socket.emit('jackpot:init', response);
+
             return false;
         }
 
-        console.log("INIT");
-        jackpot.init(data);
+        console.log("Round INIT");
+
+        var response = jackpot.init(data);
+        socket.emit('jackpot:init', response);
 
         return false;
     });
