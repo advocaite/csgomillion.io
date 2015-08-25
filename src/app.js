@@ -4,15 +4,26 @@ var io   = require('socket.io')(http);
 
 var online = 0;
 
-var jackpot = {
+var roulette = {
+    ease    : 0,
+    million : 0,
+    items   : []
+};
 
-    hash     : null,
-    players  : [],
-    items    : [],
-    value    : 0.00,
-    time     : 10,
-    finished : 0,
-    running  : false,
+var round = {
+    hash: null,
+    players: [],
+    items: [],
+    time: {
+        seconds: 120,
+        percentage: 0
+    },
+    value: 0.00,
+    finished: 0,
+    running: false
+};
+
+var jackpot = {
 
     init : function(data) {
 
@@ -143,8 +154,6 @@ app.get('/', function(req, res){
 
 io.on('connection', function(socket){
 
-    console.log('Guest user Connected.');
-
     online++;
     io.emit('chat:online', online);
 
@@ -152,23 +161,22 @@ io.on('connection', function(socket){
 
         online--;
         io.emit('chat:online', online);
-
-        console.log('Guest user Disconnected.');
     });
 
     socket.on('chat:message', function(data) {
         socket.broadcast.emit('chat:message', data);
-        console.log(data.user.PERSON_NAME + ' type on chat : ' + data.message.text);
     });
 
     socket.on('jackpot:search', function(data) {
 
-        console.log("Round SEARCH");
+        console.log("User request SEARCH");
 
-        if (jackpot.check(data))
-            return jackpot.index();
-
-        return jackpot.init(data);
+        console.log(data);
+        //
+        //if (jackpot.check(data))
+        //    return jackpot.index();
+        //
+        //return jackpot.init(data);
     });
 
     socket.on('jackpot:deposit', function(data) {
