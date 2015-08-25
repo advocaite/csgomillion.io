@@ -87,7 +87,7 @@ var jackpot = {
 
         io.emit('jackpot:stop');
 
-        jackpot.process();
+        //jackpot.process();
     },
 
     process : function() {
@@ -165,6 +165,8 @@ io.on('connection', function(socket){
 
     socket.on('jackpot:search', function(data) {
 
+        console.log("Round SEARCH");
+
         if (jackpot.check(data))
             return jackpot.index();
 
@@ -175,17 +177,17 @@ io.on('connection', function(socket){
         jackpot.deposit(data);
     });
 
-    socket.on('jackpot:winner', function(data) {
-        jackpot.winner(data);
-    });
+    //socket.on('jackpot:winner', function(data) {
+    //    jackpot.winner(data);
+    //});
 
     socket.on('jackpot:update', function(data) {
         jackpot.update(data);
     });
 
-    socket.on('jackpot:reset', function() {
-        jackpot.reset();
-    });
+    //socket.on('jackpot:reset', function() {
+    //    jackpot.reset();
+    //});
 
 });
 
