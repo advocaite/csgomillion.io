@@ -58,33 +58,19 @@ var jackpot = {
         round.items   = data.items;
         round.value   = data.VALUE;
 
-        //if (jackpot.players.length > 1 && round.time.seconds === 10)
-        //    jackpot.start();
+        if (jackpot.players.length > 1 && round.time.seconds === 10)
+            jackpot.start();
 
         return jackpot.data();
     },
 
-    //deposit : function(data) {
-    //
-    //    console.log("Round DEPOSIT");
-    //
-    //    if (round.finished === 1)
-    //        return false;
-    //
-    //    for (var i = 0; i < data.length; i++) {
-    //        round.items.push(data[i]);
-    //        //io.emit('jackpot:deposit', data[i]);
-    //    }
-    //
-    //},
+    start : function() {
 
-    //start : function() {
-    //
-    //    console.log("Round START");
-    //
-    //    io.emit('jackpot:start');
-    //    jackpot.countdown();
-    //},
+        console.log("Round START");
+
+        io.emit('jackpot:start');
+        jackpot.countdown();
+    },
 
     //stop : function() {
     //
@@ -118,24 +104,24 @@ var jackpot = {
     //    console.log("Round RESET");
     //},
 
-    //countdown : function() {
-    //
-    //    var countdown = setInterval(function () {
-    //
-    //        jackpot.time--;
-    //        io.emit('jackpot:countdown', jackpot.time);
-    //
-    //        if (jackpot.time <= 0) {
-    //            jackpot.stop();
-    //            clearInterval(countdown);
-    //        }
-    //
-    //        console.log("Round TIME: " + jackpot.time);
-    //
-    //    }, 1000);
-    //
-    //    return jackpot.time;
-    //},
+    countdown : function() {
+
+        var countdown = setInterval(function () {
+
+            round.time.seconds--;
+            io.emit('jackpot:countdown', round.time.seconds);
+
+            if (round.time.seconds <= 0) {
+                //jackpot.stop();
+                clearInterval(countdown);
+            }
+
+            console.log("Round TIME: " + round.time.seconds);
+
+        }, 1000);
+
+        return round.time.seconds;
+    },
 
     check : function(data) {
 
@@ -182,10 +168,6 @@ io.on('connection', function(socket){
 
         return false;
     });
-
-    //socket.on('jackpot:deposit', function(data) {
-    //    jackpot.deposit(data);
-    //});
 
     //socket.on('jackpot:winner', function(data) {
     //    jackpot.winner(data);
