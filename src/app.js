@@ -86,7 +86,6 @@ var jackpot = {
         jackpot.finished = 1;
 
         io.emit('jackpot:stop');
-
         jackpot.process();
     },
 
