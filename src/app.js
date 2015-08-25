@@ -15,7 +15,7 @@ var round = {
     players: [],
     items: [],
     time: {
-        seconds: 120,
+        seconds: 10,
         percentage: 0
     },
     value: 0.00,
@@ -41,7 +41,7 @@ var jackpot = {
         round.running = true;
 
         console.log("Round HASH: " + data.HASH);
-        console.log("Round TIME: " + jackpot.time);
+        console.log("Round TIME: " + jackpot.seconds.time);
 
         return jackpot.data();
     },
@@ -139,7 +139,7 @@ var jackpot = {
 
     check : function(data) {
 
-        if (jackpot.hash == data.HASH)
+        if (round.hash == data.HASH)
             return true;
 
         return false;
@@ -155,12 +155,6 @@ io.on('connection', function(socket){
 
     online++;
     io.emit('chat:online', online);
-
-    socket.on('disconnect', function() {
-
-        online--;
-        io.emit('chat:online', online);
-    });
 
     socket.on('chat:message', function(data) {
         socket.broadcast.emit('chat:message', data);
@@ -204,6 +198,12 @@ io.on('connection', function(socket){
     //socket.on('jackpot:reset', function() {
     //    jackpot.reset();
     //});
+
+    socket.on('disconnect', function() {
+
+        online--;
+        io.emit('chat:online', online);
+    });
 
 });
 
