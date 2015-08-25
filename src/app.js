@@ -118,10 +118,11 @@ var jackpot = {
                 million : data.game.WINNER,
                 items   : data.game.ROULETTE
             };
-        });
+            
+            console.log(data.game);
+            console.log(roulette);
 
-        console.log(data.game);
-        console.log(roulette);
+        });
 
         io.emit('jackpot:winner', roulette);
     },
