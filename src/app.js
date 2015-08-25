@@ -4,6 +4,8 @@ var io   = require('socket.io')(http);
 
 var requestify = require('requestify');
 
+var service = "jackpot";
+
 /*jshint esnext: true */
 const API = {
     HOST    : "http://api.csgomillion.com/",
