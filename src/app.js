@@ -75,8 +75,8 @@ var jackpot = {
 
         console.log("Round STOP");
 
-        jackpot.running  = false;
-        jackpot.finished = 1;
+        round.running  = false;
+        round.finished = 1;
 
         io.emit('jackpot:stop');
 
