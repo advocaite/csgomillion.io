@@ -92,16 +92,16 @@ var jackpot = {
 
     process : function() {
 
-        console.log("Round STOP");
+        console.log("Round PROCESS");
 
         io.emit('jackpot:process');
     },
 
-    winner : function() {
+    winner : function(data) {
 
         console.log("Round WINNER");
-        
-        io.emit('jackpot:winner');
+
+        io.emit('jackpot:winner', data);
     },
 
     reset : function (data) {
@@ -173,6 +173,10 @@ io.on('connection', function(socket){
 
     socket.on('jackpot:deposit', function(data) {
         jackpot.deposit(data);
+    });
+
+    socket.on('jackpot:winner', function(data) {
+        jackpot.winner(data);
     });
 
     socket.on('jackpot:update', function(data) {
