@@ -2,7 +2,6 @@ var app  = require('express')();
 var http = require('http').Server(app);
 var io   = require('socket.io')(http);
 
-var socket = null;
 var online = 0;
 
 var jackpot = {
@@ -34,11 +33,11 @@ var jackpot = {
         console.log("Round HASH: " + data.HASH);
         console.log("Round TIME: " + jackpot.time);
 
-        socket.emit('jackpot:init', jackpot);
+        io.sockets.emit('jackpot:init', jackpot);
     },
 
     index : function() {
-        socket.emit('jackpot:init', jackpot);
+        io.sockets.emit('jackpot:init', jackpot);
     },
 
     update : function(data) {
@@ -144,7 +143,6 @@ app.get('/', function(req, res){
 
 io.on('connection', function(socket){
 
-    socket = socket;
     console.log('Guest user Connected.');
 
     online++;
