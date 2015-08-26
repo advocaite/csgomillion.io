@@ -156,8 +156,6 @@ var jackpot = {
 
             var data = response.getBody();
 
-            console.log(round);
-
             roulette = {
                 ease    : 0,
                 million : 0,
@@ -178,14 +176,9 @@ var jackpot = {
                 running  : false
             };
 
-            console.log(round);
-
             jackpot.init(data.game);
 
-            console.log(round);
-
-            console.log("Round RELOAD");
-            
+            io.emit('jackpot:reset');
         });
 
     },
