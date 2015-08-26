@@ -156,6 +156,8 @@ var jackpot = {
 
             var data = response.getBody();
 
+            console.log(round);
+
             roulette = {
                 ease    : 0,
                 million : 0,
@@ -164,7 +166,7 @@ var jackpot = {
             };
 
             round = {
-                hash    : data.hash,
+                hash    : null,
                 players : [],
                 items   : [],
                 time    : {
@@ -176,10 +178,14 @@ var jackpot = {
                 running  : false
             };
 
-            console.log(data);
+            console.log(round);
+
+            jackpot.init(data.game);
+
+            console.log(round);
+
             console.log("Round RELOAD");
-
-
+            
         });
 
     },
