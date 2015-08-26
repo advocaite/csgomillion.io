@@ -218,12 +218,13 @@ app.get('/', function(req, res){
 
 io.on('connection', function(socket){
 
-    console.log(socket);
+    console.log(socket.id);
 
     online++;
     io.emit('chat:online', online);
 
     socket.on('chat:message', function(data) {
+        console.log(socket.id);
         socket.broadcast.emit('chat:message', data);
     });
 
