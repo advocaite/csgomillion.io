@@ -113,6 +113,9 @@ var jackpot = {
             dataType: 'json'
         }).then(function(response) {
 
+            console.log(response);
+            console.log(response.getBody());
+
             var data = response.getBody();
 
             roulette = {
