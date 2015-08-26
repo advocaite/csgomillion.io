@@ -131,11 +131,15 @@ var jackpot = {
         console.log("Round WINNER");
 
         io.emit('jackpot:winner', data);
+
+        setTimeout(function(){
+            jackpot.reset();
+        }, 15000);
+
     },
 
     reset : function () {
 
-        console.log(data);
         console.log("Round RESET");
 
         requestify.request(API.HOST + service + "/reset/" + API.FORMAT, {
@@ -248,10 +252,6 @@ io.on('connection', function(socket){
     socket.on('jackpot:update', function(data) {
         jackpot.update(data);
         io.emit('jackpot:update', round);
-    });
-
-    socket.on('jackpot:reset', function(data) {
-        jackpot.reset();
     });
 
     socket.on('disconnect', function() {
