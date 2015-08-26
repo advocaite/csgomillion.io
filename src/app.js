@@ -122,24 +122,24 @@ var jackpot = {
                 items   : data.game.ROULETTE
             };
 
-            jackpot.winner(roulette);
+            jackpot.winner(roulette, data.status);
         });
 
     },
 
-    winner : function(data) {
+    winner : function(data, session) {
 
         console.log("Round WINNER");
 
         io.emit('jackpot:winner', data);
 
         setTimeout(function(){
-            jackpot.reset();
+            jackpot.reset(session);
         }, 15000);
 
     },
 
-    reset : function () {
+    reset : function (session) {
 
         console.log("Round RESET");
 
@@ -179,7 +179,7 @@ var jackpot = {
 
             jackpot.init(data.game);
 
-            io.emit('jackpot:reset');
+            io.emit('jackpot:reset', session);
         });
 
     },
