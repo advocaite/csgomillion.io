@@ -33,7 +33,7 @@ var bot = {
             dataType: STEAM.FORMAT
         }).then(function(response) {
 
-            console.log(response);
+            console.log(response.getBody());
 
         });
     }
