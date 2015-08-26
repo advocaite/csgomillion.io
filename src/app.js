@@ -133,11 +133,52 @@ var jackpot = {
         io.emit('jackpot:winner', data);
     },
 
-    //reset : function (data) {
-    //
-    //    console.log(data);
-    //    console.log("Round RESET");
-    //},
+    reset : function () {
+
+        console.log(data);
+        console.log("Round RESET");
+
+        requestify.request(API.HOST + service + "/reset/" + API.FORMAT, {
+            method: 'POST',
+            body: {
+                api_key : API.KEY,
+                hash : round.hash
+            },
+            headers: {
+                'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'
+            },
+            dataType: 'json'
+        }).then(function(response) {
+
+            var data = response.getBody();
+
+            roulette = {
+                ease    : 0,
+                million : 0,
+                winner  : null,
+                items   : []
+            };
+
+            round = {
+                hash    : data.hash,
+                players : [],
+                items   : [],
+                time    : {
+                    seconds    : 10,
+                    percentage : 0
+                },
+                value    : 0.00,
+                finished : 0,
+                running  : false
+            };
+
+            console.log(data);
+            console.log("Round RELOAD");
+
+
+        });
+
+    },
 
     countdown : function() {
 
@@ -209,9 +250,9 @@ io.on('connection', function(socket){
         io.emit('jackpot:update', round);
     });
 
-    //socket.on('jackpot:reset', function() {
-    //    jackpot.reset();
-    //});
+    socket.on('jackpot:reset', function(data) {
+        jackpot.reset();
+    });
 
     socket.on('disconnect', function() {
 
