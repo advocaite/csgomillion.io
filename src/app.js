@@ -178,7 +178,6 @@ var jackpot = {
 
             jackpot.init(data.game);
 
-            io.emit('jackpot:reset');
         });
 
     },
