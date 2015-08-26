@@ -114,6 +114,8 @@ var jackpot = {
 
             var data = response.getBody();
 
+            console.log(data.game.WINNER);
+
             roulette = {
                 ease    : data.game.EASE,
                 million : data.game.MILLION,
