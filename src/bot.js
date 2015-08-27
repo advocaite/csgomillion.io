@@ -6,7 +6,7 @@ var requestify = require('requestify');
 
 const STEAM = {
     HOST    : "http://api.steampowered.com/",
-    KEY     : "3612D141DCBEB991AB08BBB9C11DA027",
+    KEY     : "8B9C69B3B52A52290F28758B8CD386F9",
     VERSION : "v1",
     FORMAT  : "json"
 };
