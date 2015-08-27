@@ -113,16 +113,18 @@ var jackpot = {
             dataType: 'json'
         }).then(function(response) {
 
-            var data = response.getBody();
+            console.log(response.getBody());
 
-            roulette = {
-                ease    : data.game.EASE,
-                million : data.game.MILLION,
-                winner  : data.game.WINNER,
-                items   : data.game.ROULETTE
-            };
-
-            jackpot.winner(roulette);
+            //var data = response.getBody();
+            //
+            //roulette = {
+            //    ease    : data.game.EASE,
+            //    million : data.game.MILLION,
+            //    winner  : data.game.WINNER,
+            //    items   : data.game.ROULETTE
+            //};
+            //
+            //jackpot.winner(roulette);
         });
 
     },
